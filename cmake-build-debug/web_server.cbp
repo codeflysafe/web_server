@@ -80,9 +80,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/sjhuang/Documents/projects/web_server/lock_queue/lock_block_queue.cpp">
-			<Option target="web_server"/>
-		</Unit>
 		<Unit filename="/Users/sjhuang/Documents/projects/web_server/lock_queue/lock_block_queue.h">
 			<Option target="web_server"/>
 		</Unit>
@@ -90,12 +87,6 @@
 			<Option target="web_server"/>
 		</Unit>
 		<Unit filename="/Users/sjhuang/Documents/projects/web_server/main.cpp">
-			<Option target="web_server"/>
-		</Unit>
-		<Unit filename="/Users/sjhuang/Documents/projects/web_server/thread_pool/threadpool.cpp">
-			<Option target="web_server"/>
-		</Unit>
-		<Unit filename="/Users/sjhuang/Documents/projects/web_server/thread_pool/threadpool.h">
 			<Option target="web_server"/>
 		</Unit>
 		<Unit filename="/Users/sjhuang/Documents/projects/web_server/CMakeLists.txt">

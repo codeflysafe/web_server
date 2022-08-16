@@ -4,9 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/sjhuang/Documents/projects/web_server/lock_queue/lock_block_queue.cpp" "/Users/sjhuang/Documents/projects/web_server/cmake-build-debug/CMakeFiles/web_server.dir/lock_queue/lock_block_queue.cpp.o"
   "/Users/sjhuang/Documents/projects/web_server/main.cpp" "/Users/sjhuang/Documents/projects/web_server/cmake-build-debug/CMakeFiles/web_server.dir/main.cpp.o"
-  "/Users/sjhuang/Documents/projects/web_server/thread_pool/threadpool.cpp" "/Users/sjhuang/Documents/projects/web_server/cmake-build-debug/CMakeFiles/web_server.dir/thread_pool/threadpool.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 

@@ -142,33 +142,6 @@ web_server/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/web_server.dir/build.make CMakeFiles/web_server.dir/build
 .PHONY : web_server/fast
 
-lock_queue/lock_block_queue.o: lock_queue/lock_block_queue.cpp.o
-
-.PHONY : lock_queue/lock_block_queue.o
-
-# target to build an object file
-lock_queue/lock_block_queue.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/web_server.dir/build.make CMakeFiles/web_server.dir/lock_queue/lock_block_queue.cpp.o
-.PHONY : lock_queue/lock_block_queue.cpp.o
-
-lock_queue/lock_block_queue.i: lock_queue/lock_block_queue.cpp.i
-
-.PHONY : lock_queue/lock_block_queue.i
-
-# target to preprocess a source file
-lock_queue/lock_block_queue.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/web_server.dir/build.make CMakeFiles/web_server.dir/lock_queue/lock_block_queue.cpp.i
-.PHONY : lock_queue/lock_block_queue.cpp.i
-
-lock_queue/lock_block_queue.s: lock_queue/lock_block_queue.cpp.s
-
-.PHONY : lock_queue/lock_block_queue.s
-
-# target to generate assembly for a file
-lock_queue/lock_block_queue.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/web_server.dir/build.make CMakeFiles/web_server.dir/lock_queue/lock_block_queue.cpp.s
-.PHONY : lock_queue/lock_block_queue.cpp.s
-
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -196,33 +169,6 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/web_server.dir/build.make CMakeFiles/web_server.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-thread_pool/threadpool.o: thread_pool/threadpool.cpp.o
-
-.PHONY : thread_pool/threadpool.o
-
-# target to build an object file
-thread_pool/threadpool.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/web_server.dir/build.make CMakeFiles/web_server.dir/thread_pool/threadpool.cpp.o
-.PHONY : thread_pool/threadpool.cpp.o
-
-thread_pool/threadpool.i: thread_pool/threadpool.cpp.i
-
-.PHONY : thread_pool/threadpool.i
-
-# target to preprocess a source file
-thread_pool/threadpool.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/web_server.dir/build.make CMakeFiles/web_server.dir/thread_pool/threadpool.cpp.i
-.PHONY : thread_pool/threadpool.cpp.i
-
-thread_pool/threadpool.s: thread_pool/threadpool.cpp.s
-
-.PHONY : thread_pool/threadpool.s
-
-# target to generate assembly for a file
-thread_pool/threadpool.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/web_server.dir/build.make CMakeFiles/web_server.dir/thread_pool/threadpool.cpp.s
-.PHONY : thread_pool/threadpool.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -232,15 +178,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... web_server"
-	@echo "... lock_queue/lock_block_queue.o"
-	@echo "... lock_queue/lock_block_queue.i"
-	@echo "... lock_queue/lock_block_queue.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... thread_pool/threadpool.o"
-	@echo "... thread_pool/threadpool.i"
-	@echo "... thread_pool/threadpool.s"
 .PHONY : help
 
 

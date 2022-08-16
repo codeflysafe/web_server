@@ -23,11 +23,11 @@ public:
     int size();
 
 
-private:
+protected:
     int cap;
     volatile int idx;
     // 任务队列
-    std::queue<T *> tasks;
+    std::queue<T> tasks;
 };
 
 template<typename T> bool lock_queue<T>::empty() {
@@ -41,6 +41,10 @@ template<typename T> int lock_queue<T>::size() {
 template<typename T> lock_queue<T>::lock_queue(int cap) {
     this->idx = 0;
     this->cap = cap;
+}
+
+template<typename T> lock_queue<T>::~lock_queue(){
+
 }
 
 #endif //WEB_SERVER_LOCK_QUEUE_H

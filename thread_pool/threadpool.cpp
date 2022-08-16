@@ -42,7 +42,7 @@ template<typename T> bool threadpool<T>::submit(T *task) {
 template<typename T> static void *threadpool<T>::worker(void *arg) {
     threadpool  *pool = (threadpool *)(arg);
     pool->run();
-};
+}
 
 template<typename T> void threadpool<T>::run() {
     // 如果正在运行中，从阻塞队列里面获取任务
@@ -51,6 +51,7 @@ template<typename T> void threadpool<T>::run() {
         // 如果存在任务，则执行
         if(this->queue.get(task)){
             // todo 如何处理请求
+            std::cout << "接收到了一个新的任务 ， 我要做他 ～～～～～～" << endl;
         }
     }
 }
