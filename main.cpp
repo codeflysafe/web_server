@@ -8,10 +8,11 @@ struct Task{
 };
 int main() {
 
-    lock_queue<int> *q = new lock_block_queue<int>(10);
+    lock_queue<Task *> *q = new lock_block_queue<Task *>(10);
     for(int i = 0; i < 100; i++){
-//        Task *task = new Task(i);
-        if(q->push(i)){
+        // 右值引用
+        Task *task = new Task(i);
+        if(q->push(task)){
             std::cout << i << "写入成功 ～"  << std::endl;
         }else{
             std::cout << i << "写入失败 ～"  << std::endl;
@@ -19,9 +20,9 @@ int main() {
     }
 
     while(!q->empty()){
-        int task = 0;
-        if(q->get(task)){
-            std::cout << task << "读取成功 ～"  << std::endl;
+        Task *task = new Task(1);
+        if(q->get(std::move(task))){
+            std::cout << task->val << "读取成功 ～"  << std::endl;
         }
 
     }

@@ -18,11 +18,11 @@ public:
     // 放入任务, 这里使用右值引用
     virtual bool try_push(const T &task);
     // 取出任务
-    virtual bool try_get(T &task);
+    virtual bool try_get(T &&task);
     // 放入任务, 这里使用右值引用
     virtual bool push(const T &task);
     // 取出任务
-    virtual bool get(T &task);
+    virtual bool get(T &&task);
 
 private:
     mutable pthread_rwlock_t rwlock;
@@ -59,12 +59,12 @@ template <typename T> bool lock_block_queue<T>::try_push(const T &task) {
 }
 
 // 从队列中弹出一个任务，失败返回false，成功则返回 true
-template <typename T> bool lock_block_queue<T>::try_get(T &task) {
+template <typename T> bool lock_block_queue<T>::try_get(T &&task) {
     if(pthread_rwlock_trywrlock(&this->rwlock) == 0){
         if(this->idx > 0){
             this->idx -= 1;
             // 避免复制，减少内存占用和copy
-            task = std::move(this->tasks.front());
+            task = this->tasks.front();
             pthread_rwlock_unlock(&this->rwlock);
             return true;
         }
@@ -91,12 +91,12 @@ template <typename T> bool lock_block_queue<T>::push(const T &task){
     }
 }
 
-template <typename T> bool lock_block_queue<T>::get(T &task){
+template <typename T> bool lock_block_queue<T>::get(T &&task){
     pthread_rwlock_wrlock(&this->rwlock);
     if(this->idx > 0){
         this->idx -= 1;
         // 避免复制，减少内存占用和copy
-        task = std::move(this->tasks.front());
+        task = this->tasks.front();
         pthread_rwlock_unlock(&this->rwlock);
         return true;
     }

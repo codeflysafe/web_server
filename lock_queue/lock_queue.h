@@ -12,13 +12,14 @@ public:
     lock_queue(int cap);
     virtual ~lock_queue();
     // 纯虚函数
-    virtual bool push(const T &task) = 0;
+    //
+    virtual bool push(const T& task) = 0;
     // 纯虚函数
-    virtual bool get(T &task) = 0;
+    virtual bool get(T&& task) = 0;
     // 纯虚函数
-    virtual bool try_push(const T &task) = 0;
+    virtual bool try_push(const T& task) = 0;
     // 纯虚函数
-    virtual bool try_get(T &task) = 0;
+    virtual bool try_get(T&& task) = 0;
     bool empty();
     int size();
 
