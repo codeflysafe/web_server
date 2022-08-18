@@ -1,31 +1,21 @@
 #include <iostream>
-#include "lock_queue/lock_block_queue.h"
-//#include "lock_queue/lock_queue.h"
-
+#include "thread_pool/threadpool.h"
+//#include "block_queue/block_queue.h"
+#include <chrono>
+#include <thread>
 struct Task{
     int val;
+    Task():val(-1){};
     Task(int v):val(v){};
 };
 int main() {
-
-    lock_queue<Task *> *q = new lock_block_queue<Task *>(10);
-    for(int i = 0; i < 100; i++){
-        // 右值引用
-        Task *task = new Task(i);
-        if(q->push(task)){
-            std::cout << i << "写入成功 ～"  << std::endl;
-        }else{
-            std::cout << i << "写入失败 ～"  << std::endl;
-        }
+    threadpool<Task> pool = threadpool<Task>();
+    for(int i = 0; i < 10; i++){
+        Task t = Task(i);
+        pool.submit(t);
     }
 
-    while(!q->empty()){
-        Task *task = new Task(1);
-        if(q->get(std::move(task))){
-            std::cout << task->val << "读取成功 ～"  << std::endl;
-        }
-
-    }
+    std::this_thread::sleep_for(std::chrono::milliseconds(20000));
 
     return 0;
 }
