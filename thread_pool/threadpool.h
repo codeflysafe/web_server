@@ -45,6 +45,7 @@ private:
 template<typename T> threadpool<T>::threadpool(bool block_queue , int thread_num, int max_task_num) {
     this->max_thread_num = thread_num;
     this->cur_active_thread_num = 0;
+    this->m_stop = true;
     if(block_queue){
         this->queue = new lock_block_queue<T>(max_task_num);
     }
@@ -88,7 +89,8 @@ template<typename T> void threadpool<T>::run() {
         // 如果存在任务，则执行
         if(this->queue->take(task)){
             // todo 如何处理请求
-            std::cout << "接收到了一个新的任务 ， 我要做他 ～～～～～～" << endl;
+            std::cout << "接收到了一个新的任务 ， 我要做他 ～～～～～～" << &task << endl;
+
         }
     }
 }
