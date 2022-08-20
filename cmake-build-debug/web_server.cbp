@@ -80,6 +80,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/Users/sjhuang/Documents/projects/web_server/lock/lock.h">
+			<Option target="web_server"/>
+		</Unit>
 		<Unit filename="/Users/sjhuang/Documents/projects/web_server/main.cpp">
 			<Option target="web_server"/>
 		</Unit>

@@ -38,7 +38,6 @@ private:
     volatile bool m_stop;
     // 任务队列
     block_queue<T> *queue;
-
 };
 
 
@@ -77,7 +76,7 @@ template<typename T> bool threadpool<T>::submit(const T& task) {
 }
 
 /*工作线程运行的函数，它不断从工作队列中取出任务并执行之*/
-template<typename T> static void *threadpool<T>::worker(void *arg) {
+template<typename T>  void *threadpool<T>::worker(void *arg) {
     threadpool  *pool = (threadpool *)(arg);
     pool->run();
 }
@@ -89,7 +88,7 @@ template<typename T> void threadpool<T>::run() {
         // 如果存在任务，则执行
         if(this->queue->take(task)){
             // todo 如何处理请求
-            std::cout << "接收到了一个新的任务 ， 我要做他 ～～～～～～" << &task << endl;
+            std::cout << "接收到了一个新的任务,我要做他 ～～～～～～" << &task << std::endl;
 
         }
     }

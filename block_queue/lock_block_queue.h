@@ -21,14 +21,18 @@ public:
     virtual bool take(T &task);
 
 private:
-    mutable pthread_rwlock_t rwlock;
+    mutable pthread_mutex_t lock;
     mutable pthread_cond_t cond;
 };
 
 
 template <typename T> lock_block_queue<T>::lock_block_queue(const int cap):block_queue<T>(cap) {
 
-    if(pthread_rwlock_init(&this->rwlock,NULL) != 0){
+    if(pthread_mutex_init(&this->lock,NULL) != 0){
+        throw std::exception();
+    }
+
+    if(pthread_cond_init(&this->cond, NULL) != 0){
         throw std::exception();
     }
 }
@@ -39,32 +43,36 @@ template <typename T> lock_block_queue<T>::~lock_block_queue<T>() {
 
 template <typename T> bool lock_block_queue<T>::push(const T &task){
     // 获取锁成功
-    pthread_rwlock_wrlock(&this->rwlock);
+    pthread_mutex_lock(&this->lock);
     if(this->idx >= this->cap){
-        // 此时已经满了，返回失败
-        pthread_rwlock_unlock(&this->rwlock);
+        // 此时已经满了，唤醒一个线程处理
+        pthread_cond_signal(&this->cond);
+        pthread_mutex_unlock(&this->lock);
         return false;
-    }else{
-        // 如果没有满，则增加，返回成功
-        this->idx += 1;
-        this->tasks.emplace(task);
-        pthread_rwlock_unlock(&this->rwlock);
-        return true;
     }
+    // 如果没有满，则增加，返回成功
+    this->idx += 1;
+    this->tasks.emplace(task);
+    pthread_cond_signal(&this->cond);
+    pthread_mutex_unlock(&this->lock);
+    return true;
 }
 
 template <typename T> bool lock_block_queue<T>::take(T &task){
-    pthread_rwlock_wrlock(&this->rwlock);
-    if(this->idx > 0){
-        this->idx -= 1;
-        // 避免复制，减少内存占用和copy
-        task = std::move(this->tasks.front());
-        this->tasks.pop();
-        pthread_rwlock_unlock(&this->rwlock);
-        return true;
+    pthread_mutex_lock(&this->lock);
+    // 如果没有任务，则阻塞
+    while(this->idx <= 0){
+        if(0 != pthread_cond_wait(&cond, &lock)){
+            pthread_mutex_unlock(&lock);
+            return false;
+        }
     }
-    pthread_rwlock_unlock(&this->rwlock);
-    return false;
+    this->idx -= 1;
+    // 避免复制，减少内存占用和copy
+    task = std::move(this->tasks.front());
+    this->tasks.pop();
+    pthread_mutex_unlock(&this->lock);
+    return true;
 }
 
 

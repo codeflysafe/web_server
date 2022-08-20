@@ -10,12 +10,12 @@ struct Task{
 };
 int main() {
     threadpool<Task> pool = threadpool<Task>();
-    for(int i = 0; i < 10; i++){
+    for(int i = 0; i < 100; i++){
         Task t = Task(i);
         pool.submit(t);
     }
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(20000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(10000));
 
     return 0;
 }
