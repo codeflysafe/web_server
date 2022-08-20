@@ -20,6 +20,8 @@ public:
     ~threadpool();
     // 向任务队列里面提交任务，当达到最大任务数量的时候，可能会block
     bool submit(const T& task);
+    // 停止提交任务
+    void stop();
 
 private:
     /*工作线程运行的函数，它不断从工作队列中取出任务并执行之*/
@@ -36,7 +38,7 @@ private:
     // 线程池内活跃的最大线程数量
     int max_thread_num;
     // 是否停止允许
-    volatile bool m_stop;
+    volatile bool m_run;
     // 任务队列
     block_queue<T> *queue;
     // 计数器，当前已经处理了多少线程任务
@@ -48,7 +50,7 @@ private:
 template<typename T> threadpool<T>::threadpool(bool block_queue, int thread_num, int max_task_num) {
     this->max_thread_num = thread_num;
     this->cur_active_thread_num = 0;
-    this->m_stop = true;
+    this->m_run = true;
     this->count = 0;
     if(block_queue){
         this->queue = new lock_block_queue<T>(max_task_num);
@@ -88,7 +90,7 @@ template<typename T>  void *threadpool<T>::worker(void *arg) {
 
 template<typename T> void threadpool<T>::run() {
     // 如果正在运行中，从阻塞队列里面获取任务
-    while(this->m_stop){
+    while(this->m_run){
         T task {};
         // 如果存在任务，则执行
         if(this->queue->take(task)){
@@ -99,6 +101,11 @@ template<typename T> void threadpool<T>::run() {
             printf("接收到了一个新的任务 %d\n", count.load());
         }
     }
+    printf("threadpool run stop \n");
+}
+
+template<typename T> void threadpool<T>::stop() {
+    this->m_run = false;
 }
 
 
