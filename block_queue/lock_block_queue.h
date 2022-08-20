@@ -39,6 +39,8 @@ template <typename T> lock_block_queue<T>::lock_block_queue(const int cap):block
 
 template <typename T> lock_block_queue<T>::~lock_block_queue<T>() {
     // todo 析构函数
+    pthread_cond_destroy(&cond);
+    pthread_mutex_destroy(&lock);
 }
 
 template <typename T> bool lock_block_queue<T>::push(const T &task){

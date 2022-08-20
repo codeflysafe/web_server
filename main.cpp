@@ -9,7 +9,7 @@ struct Task{
     Task(int v):val(v){};
 };
 int main() {
-    threadpool<Task> pool = threadpool<Task>();
+    threadpool<Task> pool;
     for(int i = 0; i < 100; i++){
         Task t = Task(i);
         pool.submit(t);

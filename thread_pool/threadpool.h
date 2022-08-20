@@ -6,15 +6,16 @@
 #define WEB_SERVER_THREADPOOL_H
 #include <iostream>
 #include <pthread.h>
+#include <atomic>
 #include "../block_queue/block_queue.h"
 #include "../block_queue/lock_block_queue.h"
-
 using  namespace  std;
 
 template<typename T>
 class threadpool {
 
 public:
+
     threadpool(bool block_queue = true,int thread_num = 8, int max_task_num = 1000);
     ~threadpool();
     // 向任务队列里面提交任务，当达到最大任务数量的时候，可能会block
@@ -38,16 +39,21 @@ private:
     volatile bool m_stop;
     // 任务队列
     block_queue<T> *queue;
+    // 计数器，当前已经处理了多少线程任务
+    atomic_int count;
+    bool use_block_queue;
 };
 
 
-template<typename T> threadpool<T>::threadpool(bool block_queue , int thread_num, int max_task_num) {
+template<typename T> threadpool<T>::threadpool(bool block_queue, int thread_num, int max_task_num) {
     this->max_thread_num = thread_num;
     this->cur_active_thread_num = 0;
     this->m_stop = true;
+    this->count = 0;
     if(block_queue){
         this->queue = new lock_block_queue<T>(max_task_num);
     }
+    this->use_block_queue = block_queue;
     m_threds = new pthread_t[this->max_thread_num];
     if(!m_threds){
         throw std::exception();
@@ -57,7 +63,6 @@ template<typename T> threadpool<T>::threadpool(bool block_queue , int thread_num
             delete [] m_threds;
             throw std::exception();
         }
-
         //将线程进行分离后，不用单独对工作线程进行回收
         if(pthread_detach(m_threds[i])){
             delete []m_threds;
@@ -88,8 +93,10 @@ template<typename T> void threadpool<T>::run() {
         // 如果存在任务，则执行
         if(this->queue->take(task)){
             // todo 如何处理请求
-            std::cout << "接收到了一个新的任务,我要做他 ～～～～～～" << &task << std::endl;
-
+            // 原子指令
+            this->count ++;
+//            int p = this->count;
+            printf("接收到了一个新的任务 %d\n", count.load());
         }
     }
 }
