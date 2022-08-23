@@ -93,12 +93,12 @@ clean: CMakeFiles/web_server.dir/clean
 CMakeFiles/web_server.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/web_server.dir/build.make CMakeFiles/web_server.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/web_server.dir/build.make CMakeFiles/web_server.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/sjhuang/Documents/projects/web_server/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target web_server"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/sjhuang/Documents/projects/web_server/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5 "Built target web_server"
 .PHONY : CMakeFiles/web_server.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/web_server.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sjhuang/Documents/projects/web_server/cmake-build-debug/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sjhuang/Documents/projects/web_server/cmake-build-debug/CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/web_server.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sjhuang/Documents/projects/web_server/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/web_server.dir/rule

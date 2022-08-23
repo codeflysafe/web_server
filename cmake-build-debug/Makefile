@@ -142,6 +142,60 @@ web_server/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/web_server.dir/build.make CMakeFiles/web_server.dir/build
 .PHONY : web_server/fast
 
+event/event_handle.o: event/event_handle.cpp.o
+
+.PHONY : event/event_handle.o
+
+# target to build an object file
+event/event_handle.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/web_server.dir/build.make CMakeFiles/web_server.dir/event/event_handle.cpp.o
+.PHONY : event/event_handle.cpp.o
+
+event/event_handle.i: event/event_handle.cpp.i
+
+.PHONY : event/event_handle.i
+
+# target to preprocess a source file
+event/event_handle.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/web_server.dir/build.make CMakeFiles/web_server.dir/event/event_handle.cpp.i
+.PHONY : event/event_handle.cpp.i
+
+event/event_handle.s: event/event_handle.cpp.s
+
+.PHONY : event/event_handle.s
+
+# target to generate assembly for a file
+event/event_handle.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/web_server.dir/build.make CMakeFiles/web_server.dir/event/event_handle.cpp.s
+.PHONY : event/event_handle.cpp.s
+
+http/httpd.o: http/httpd.cpp.o
+
+.PHONY : http/httpd.o
+
+# target to build an object file
+http/httpd.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/web_server.dir/build.make CMakeFiles/web_server.dir/http/httpd.cpp.o
+.PHONY : http/httpd.cpp.o
+
+http/httpd.i: http/httpd.cpp.i
+
+.PHONY : http/httpd.i
+
+# target to preprocess a source file
+http/httpd.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/web_server.dir/build.make CMakeFiles/web_server.dir/http/httpd.cpp.i
+.PHONY : http/httpd.cpp.i
+
+http/httpd.s: http/httpd.cpp.s
+
+.PHONY : http/httpd.s
+
+# target to generate assembly for a file
+http/httpd.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/web_server.dir/build.make CMakeFiles/web_server.dir/http/httpd.cpp.s
+.PHONY : http/httpd.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -169,6 +223,33 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/web_server.dir/build.make CMakeFiles/web_server.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+web_server.o: web_server.cpp.o
+
+.PHONY : web_server.o
+
+# target to build an object file
+web_server.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/web_server.dir/build.make CMakeFiles/web_server.dir/web_server.cpp.o
+.PHONY : web_server.cpp.o
+
+web_server.i: web_server.cpp.i
+
+.PHONY : web_server.i
+
+# target to preprocess a source file
+web_server.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/web_server.dir/build.make CMakeFiles/web_server.dir/web_server.cpp.i
+.PHONY : web_server.cpp.i
+
+web_server.s: web_server.cpp.s
+
+.PHONY : web_server.s
+
+# target to generate assembly for a file
+web_server.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/web_server.dir/build.make CMakeFiles/web_server.dir/web_server.cpp.s
+.PHONY : web_server.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -178,9 +259,18 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... web_server"
+	@echo "... event/event_handle.o"
+	@echo "... event/event_handle.i"
+	@echo "... event/event_handle.s"
+	@echo "... http/httpd.o"
+	@echo "... http/httpd.i"
+	@echo "... http/httpd.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... web_server.o"
+	@echo "... web_server.i"
+	@echo "... web_server.s"
 .PHONY : help
 
 

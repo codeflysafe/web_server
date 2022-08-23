@@ -80,6 +80,18 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/Users/sjhuang/Documents/projects/web_server/event/event_handle.cpp">
+			<Option target="web_server"/>
+		</Unit>
+		<Unit filename="/Users/sjhuang/Documents/projects/web_server/event/event_handle.h">
+			<Option target="web_server"/>
+		</Unit>
+		<Unit filename="/Users/sjhuang/Documents/projects/web_server/http/httpd.cpp">
+			<Option target="web_server"/>
+		</Unit>
+		<Unit filename="/Users/sjhuang/Documents/projects/web_server/http/httpd.h">
+			<Option target="web_server"/>
+		</Unit>
 		<Unit filename="/Users/sjhuang/Documents/projects/web_server/lock/lock.h">
 			<Option target="web_server"/>
 		</Unit>
@@ -87,6 +99,12 @@
 			<Option target="web_server"/>
 		</Unit>
 		<Unit filename="/Users/sjhuang/Documents/projects/web_server/thread_pool/threadpool.h">
+			<Option target="web_server"/>
+		</Unit>
+		<Unit filename="/Users/sjhuang/Documents/projects/web_server/web_server.cpp">
+			<Option target="web_server"/>
+		</Unit>
+		<Unit filename="/Users/sjhuang/Documents/projects/web_server/web_server.h">
 			<Option target="web_server"/>
 		</Unit>
 		<Unit filename="/Users/sjhuang/Documents/projects/web_server/CMakeLists.txt">
