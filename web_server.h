@@ -10,15 +10,16 @@
 #include <sys/types.h>
 #include <iostream>
 #include <string>
+#include "event/event_handle.h"
 
 class web_server {
 public:
-    web_server();
+    web_server(int port, int backlog);
     ~web_server();
-
     void init(int port);
     // 开启一个服务, server true: 服务端， false client
     void start(bool server);
+
 
 private:
     // 服务器端口
@@ -26,6 +27,8 @@ private:
     const char * server_ip_addr;
     // 队列大小
     const int backlog;
+    bool running;
+    event_handle* handle;
     void start_server();
     void start_client();
     void init_serv_addr(struct sockaddr_in *serv_addr){

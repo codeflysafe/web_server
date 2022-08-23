@@ -6,25 +6,31 @@
 #define WEB_SERVER_EVENT_HANDLE_H
 #include <fcntl.h>
 #include <sys/event.h>
+#include <iostream>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 
 class event_handle{
 private:
     const int kReadEvent;
     const int kWriteEvent;
+    const int kMaxEvents;
+    int efd;
 public:
     event_handle();
     ~event_handle();
     // 更新事件
-    void update_events(int efd, int fd, int events, bool modify);
+    void update_events(int fd, int events, bool modify);
     // 处理 accept
     // TODO 增加一个 处理 accept 的回调函数
-    void handleAccept(int efd, int lfd);
-    void handleRead(int efd, int fd);
-    void handleWrite(int efd, int fd);
-    void handleError(int efd, int fd);
+    void handleAccept(int lfd);
+    void handleRead(int fd);
+    void handleWrite(int fd);
+    void handleError(int fd);
 
     // 处理一次可读/可写的
-    void loop_once(int efd, int lfd, int waitms);
+    void loop_once(int lfd, int waitms);
 
 };
 

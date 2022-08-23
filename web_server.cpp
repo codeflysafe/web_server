@@ -4,6 +4,11 @@
 
 #include "web_server.h"
 
+web_server::web_server(int port, int backlog):server_port(port),backlog(backlog), server_ip_addr("127.0.0.1"){
+    running = false;
+    handle = new event_handle();
+}
+
 void web_server::start(bool server) {
     if(server){
         return this->start_server();
@@ -27,6 +32,10 @@ void web_server::start_client() {
     // connect success
 }
 
+void web_server::init(int port) {
+
+}
+
 void web_server::start_server() {
     int listenfd, coonfd;
     // 创建 socket 套接字
@@ -46,7 +55,9 @@ void web_server::start_server() {
         throw std::exception();
     }
 
-    // epoll 进行i/o复用
-
+    // todo 进行处理
+    while(running){
+        handle->loop_once(listenfd, -1);
+    }
 
 }
