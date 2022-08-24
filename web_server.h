@@ -14,7 +14,7 @@
 
 class web_server {
 public:
-    web_server(int port, int backlog);
+    web_server(int port, int backlog, int buffer_size);
     ~web_server();
     void init(int port);
     // 开启一个服务, server true: 服务端， false client
@@ -25,6 +25,7 @@ private:
     // 服务器端口
     const int server_port;
     const char * server_ip_addr;
+    const int buffer_size;
     // 队列大小
     const int backlog;
     bool running;
@@ -38,6 +39,7 @@ private:
     }
 
 };
+
 
 
 #endif //WEB_SERVER_WEB_SERVER_H
