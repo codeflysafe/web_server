@@ -24,20 +24,20 @@ int set_non_block(int fd){
 
 web_server::web_server(int port, int backlog, int buffer_size):server_port(port),backlog(backlog),buffer_size(buffer_size), server_ip_addr("127.0.0.1"){
     running = false;
-    handle = new event_handle(buffer_size);
 }
 
 web_server::web_server():server_port(-1),backlog(5),buffer_size(4096), server_ip_addr("127.0.0.1"){
     running = false;
-    handle = new event_handle(buffer_size);
 }
 
 
 void web_server::start(bool server) {
     running = true;
     if(server){
+        handle = new event_handle(buffer_size, "[server]");
         return this->start_server();
     }
+    handle = new event_handle(buffer_size, "[client]");
     return this->start_client();
 }
 
@@ -64,10 +64,14 @@ void web_server::start_client() {
 //    }
     set_non_block(sockfd);
     handle->add_rw_events(sockfd);
-    // todo 进行处理
-    while(running){
-        handle->loop_once(sockfd, 1000);
+    for (int i = 0; i< 10; i++) {
+        handle->loop_client_once(sockfd, 1000);
     }
+    // todo 进行处理
+//    while(running){
+//        handle->loop_client_once(sockfd, 1000);
+//    }
+    close(sockfd);
 
 }
 
@@ -100,10 +104,15 @@ void web_server::start_server() {
     }
     set_non_block(listenfd);
     handle->add_rw_events(listenfd);
-    printf(" start a server at %s:%d, sockfd:%d \n", server_ip_addr, server_port, listenfd);
+    printf("[server] start a server at %s:%d, sockfd:%d \n", server_ip_addr, server_port, listenfd);
     // todo 进行处理
     while(running){
         handle->loop_once(listenfd, 1000);
     }
+    close(listenfd);
 
+}
+
+void web_server::stop() {
+    running = false;
 }

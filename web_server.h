@@ -20,6 +20,7 @@ public:
     void init(int port);
     // 开启一个服务, server true: 服务端， false client
     void start(bool server);
+    void stop();
 
 
 private:

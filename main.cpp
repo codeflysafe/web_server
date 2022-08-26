@@ -27,6 +27,7 @@ int main() {
     sleep(1);
     web_server client =  web_server(8080,5,4096);
     client.start(false);
+    sleep(10);
 
     t.join();
 

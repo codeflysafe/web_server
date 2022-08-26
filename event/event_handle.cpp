@@ -3,7 +3,7 @@
 //
 
 #include "event_handle.h"
-event_handle::event_handle(const int buffer_size):kWriteEvent(2), kReadEvent(1), kMaxEvents(20),bufferSize(buffer_size){
+event_handle::event_handle(const int buffer_size, const char *prefix):kWriteEvent(2), kReadEvent(1), kMaxEvents(20),bufferSize(buffer_size), prefix(prefix){
     efd = kqueue();
     if(efd < 0){
         throw std::exception();
@@ -55,9 +55,8 @@ void event_handle::handleAccept(int lfd) {
 void event_handle::handleWrite(int fd) {
     // todo 处理写事件
     char msg[bufferSize];
-    sprintf(msg," wojieshoudaole xxxxxxx fd:%d",fd);
+    sprintf(msg,"msg: -%s- wojieshoudaole xxxxxxx fd:%d", prefix ,fd);
     write(fd, msg, sizeof(msg));
-//    close(fd);
 }
 
 
@@ -65,7 +64,7 @@ void event_handle::handleRead(int fd) {
     //todo 处理读，要一次读完，
     char buffer[bufferSize];
     int n = 0;
-    printf("recv data are: \n");
+    printf(" %s recv data are: \n", prefix);
     memset(buffer,0, bufferSize);
     while((n = read(fd, buffer, bufferSize - 1)) > 0){
         // todo 读出来的数据，如何处理呢？
@@ -76,7 +75,7 @@ void event_handle::handleRead(int fd) {
     }
     if(n < 0){
         printf("error :%d \n", errno);
-//        close(fd);
+        close(fd);
 //        throw std::exception();
     }
 
@@ -85,8 +84,8 @@ void event_handle::handleRead(int fd) {
 void event_handle::handleError(int fd) {
     // todo 处理错误
     // 关闭 fd
-    printf(" error fd: %d\n", fd);
-//    close(fd);
+    printf("%s error fd: %d\n", prefix,fd);
+    close(fd);
 }
 
 void event_handle::add_rw_events(int fd){
@@ -107,7 +106,7 @@ void event_handle::loop_once(int lfd, int waitms) {
     for(int i = 0; i < n; i++){
         int fd = (int)(intptr_t)(active_kevents[i].udata);
         int events = active_kevents[i].filter;
-//        printf("lfd: %d fd:%d and events:%d :\n",lfd, fd, events);
+        printf("[server] lfd: %d fd:%d and events:%d :\n",lfd, fd, events);
         // 可读操作
         if(events == EVFILT_READ){
             // accept 准备就绪，这里
@@ -119,8 +118,37 @@ void event_handle::loop_once(int lfd, int waitms) {
         }else if(events == EVFILT_WRITE){
             handleWrite( fd);
         }else{
-            printf("error : %d \n", errno);
+            printf("%s error : %d \n", prefix ,errno);
             handleError( fd);
+//            throw std::exception();
+        }
+    }
+}
+
+void event_handle::loop_client_once(int sockfd, int waitms) {
+    struct timespec timeout;
+    if(waitms >= 0){
+        timeout.tv_sec = waitms/1000;
+        timeout.tv_nsec = (waitms % 1000)*1000 * 1000;
+    }
+    struct kevent active_kevents[kMaxEvents];
+    int n = kevent(efd, nullptr, 0, active_kevents, kMaxEvents, waitms < 0? nullptr:&timeout);
+    if(n < 0){
+        throw std::exception();
+    }
+    for(int i = 0; i < n; i++){
+        int fd = (int)(intptr_t)(active_kevents[i].udata);
+        int events = active_kevents[i].filter;
+        printf("[client] lfd: %d fd:%d and events:%d :\n",sockfd, fd, events);
+        // 可读操作
+        if(events == EVFILT_READ){
+            // accept 准备就绪，这里
+            handleRead(sockfd);
+        }else if(events == EVFILT_WRITE){
+            handleWrite( sockfd);
+        }else{
+            printf("[client ]error : %d \n", errno);
+            handleError( sockfd);
 //            throw std::exception();
         }
     }

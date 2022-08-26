@@ -20,9 +20,10 @@ private:
     const int kWriteEvent;
     const int kMaxEvents;
     const int bufferSize;
+    const char *prefix;
     int efd;
 public:
-    event_handle(const int buffer_size);
+    event_handle(const int buffer_size, const char *prefix);
     ~event_handle();
     void add_rw_events(int fd);
     // 更新事件
@@ -36,6 +37,7 @@ public:
 
     // 处理一次可读/可写的
     void loop_once(int lfd, int waitms);
+    void loop_client_once(int sockfd, int waitms);
 
 };
 
