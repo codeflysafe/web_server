@@ -24,6 +24,7 @@ private:
 public:
     event_handle(const int buffer_size);
     ~event_handle();
+    void add_rw_events(int fd);
     // 更新事件
     void update_events(int fd, int events, bool modify);
     // 处理 accept

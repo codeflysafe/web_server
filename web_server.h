@@ -15,6 +15,7 @@
 class web_server {
 public:
     web_server(int port, int backlog, int buffer_size);
+    web_server();
     ~web_server();
     void init(int port);
     // 开启一个服务, server true: 服务端， false client
