@@ -76,9 +76,9 @@ void event_handle::handleRead(int fd) {
     if(n < 0){
         printf("error :%d \n", errno);
         close(fd);
+        return;
 //        throw std::exception();
     }
-
 }
 
 void event_handle::handleError(int fd) {
@@ -119,7 +119,7 @@ void event_handle::loop_once(int lfd, int waitms) {
             handleWrite( fd);
         }else{
             printf("%s error : %d \n", prefix ,errno);
-            handleError( fd);
+            handleError(fd);
 //            throw std::exception();
         }
     }
@@ -147,7 +147,7 @@ void event_handle::loop_client_once(int sockfd, int waitms) {
         }else if(events == EVFILT_WRITE){
             handleWrite( sockfd);
         }else{
-            printf("[client ]error : %d \n", errno);
+            printf("[client] error : %d \n", errno);
             handleError( sockfd);
 //            throw std::exception();
         }

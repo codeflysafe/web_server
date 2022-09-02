@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+adsasdas
+</body>
+<script>
+    //与服务器的socket服务建立连接
+    ws = new WebSocket("ws://127.0.0.1:8080");
+    //当连接建立时，自动调用的函数
+    ws.onopen = function() {
+        var arr=[];
+        arr.push('play');
+        arr.push(1);
+        var data=JSON.stringify(arr);
+        //向服务器的socket服务发送数据
+        ws.send(data);
+    };
+    //当服务器socket服务有数据发送到当前客户端时，自动调用的函数
+    ws.onmessage = function(e) {
+        console.log("收到服务端的消息：" + e.data);
+    };
+    //当客户端收到服务器发送的关闭连接请求时，自动调用的函数
+    ws.onclose=function(e){
+        console.log("服务器的socket服务已经停止");
+    }
+    //当访问服务器socket服务，发生错误时，自动调用
+    ws.onerror=function(e){
+        console.log("socket服务错误！");
+    }
+</script>
+
+</html>

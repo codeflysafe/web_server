@@ -95,9 +95,7 @@ void web_server::start_server() {
     memset(&servaddr, 0, sizeof(servaddr));
     init_serv_addr(&servaddr);
     // 监听，绑定端口port
-    if(bind(listenfd, (struct sockaddr *)&servaddr, sizeof(servaddr)) < 0){
-        throw std::exception();
-    }
+    bind(listenfd, (struct sockaddr *)&servaddr, sizeof(servaddr));
     // listen, closed -> listen 状态
     if(listen(listenfd,backlog) < 0){
         throw std::exception();
@@ -110,7 +108,6 @@ void web_server::start_server() {
         handle->loop_once(listenfd, 1000);
     }
     close(listenfd);
-
 }
 
 void web_server::stop() {

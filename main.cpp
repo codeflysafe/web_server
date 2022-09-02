@@ -19,17 +19,8 @@ void server(){
 
 
 int main() {
-//    threadpool<Task> *pool = new threadpool<Task>();
-    // 开启一个服务 server
-    std::thread t = thread(server);
-//    cout << "start a server" << endl;
-    // 开启一个 client
-    sleep(1);
-    web_server client =  web_server(8080,5,4096);
-    client.start(false);
-    sleep(10);
 
-    t.join();
+    server();
 
     return 0;
 }
